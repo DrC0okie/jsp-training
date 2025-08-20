@@ -1,0 +1,259 @@
+:root {
+    --bg: #f7f7fb;
+    --panel: #ffffff;
+    --text: #222;
+    --muted: #667085;
+    --border: #e6e6ef;
+
+    --primary: #3b82f6;
+    --danger: #ef4444;
+    --ok: #10b981;
+    --amber: #f59e0b;
+
+
+    --due-none: #b8c0c9;
+    --due-later: #22c55e;
+    --due-soon: #f59e0b;
+    --overdue: #ef4444;
+}
+
+* {
+    box-sizing: border-box
+}
+
+html, body {
+    margin: 0;
+    padding: 0
+}
+
+body {
+    font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif;
+    color: var(--text);
+    background: linear-gradient(180deg, #f9fafb 0%, var(--bg) 100%);
+}
+
+.container {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.6rem
+}
+
+header .hint {
+    color: var(--muted);
+    font-size: .95rem
+}
+
+.form-add, .form-edit {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin: .75rem 0 1rem;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: .75rem;
+    padding: .75rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .04);
+}
+
+.form-edit {
+    border-left: 4px solid var(--primary)
+}
+
+.form-add input[type="text"],
+.form-add input[type="date"],
+.form-edit input[type="text"],
+.form-edit input[type="date"] {
+    padding: .6rem .7rem;
+    border: 1px solid var(--border);
+    border-radius: .5rem;
+    min-width: 220px;
+    flex: 1
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    padding: .3rem .5rem;
+    border-radius: .5rem
+}
+
+.actions-row {
+    margin-left: auto;
+    display: flex;
+    gap: .5rem
+}
+
+button, .btn {
+    appearance: none;
+    border: 1px solid var(--border);
+    background: #fff;
+    color: #111;
+    padding: .55rem .8rem;
+    border-radius: .55rem;
+    cursor: pointer;
+    font-weight: 600
+}
+
+button:hover, .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .06)
+}
+
+.btn-primary {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff
+}
+
+.btn-danger {
+    background: #fff;
+    border-color: #fecaca;
+    color: #b91c1c
+}
+
+.btn-ghost {
+    background: #fff
+}
+
+.btn-icon {
+    width: 2.1rem;
+    display: inline-flex;
+    justify-content: center
+}
+
+.board {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 900px) {
+    .board {
+        grid-template-columns: 1fr
+    }
+}
+
+.column {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: .75rem;
+    padding: .75rem;
+    min-height: 140px;
+}
+
+.column h2 {
+    margin: .25rem 0 .75rem;
+    font-size: 1.1rem;
+    color: #0f172a;
+}
+
+.task-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: .6rem;
+}
+
+.task {
+    display: flex;
+    gap: .6rem;
+    align-items: flex-start;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 6px solid var(--due-none);
+    border-radius: .6rem;
+    padding: .65rem .7rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
+}
+
+.task .body {
+    flex: 1;
+    min-width: 0
+}
+
+.task .title {
+    font-weight: 700
+}
+
+.task .desc {
+    color: var(--muted);
+    font-size: .95rem;
+    white-space: pre-wrap
+}
+
+.task .meta {
+    color: var(--muted);
+    font-size: .85rem;
+    margin-top: .25rem
+}
+
+.task .meta .badge {
+    display: inline-block;
+    padding: .15rem .45rem;
+    border-radius: .45rem;
+    border: 1px solid var(--border);
+    background: #fafafa
+}
+
+.task .actions {
+    display: flex;
+    gap: .35rem;
+    margin-left: .4rem;
+    flex-wrap: wrap
+}
+
+.task.overdue {
+    border-left-color: var(--overdue);
+    background: #fff5f5
+}
+
+.task.due-soon {
+    border-left-color: var(--due-soon);
+    background: #fff8ed
+}
+
+.task.due-later {
+    border-left-color: var(--due-later);
+    background: #f0fff5
+}
+
+.task.due-none {
+    border-left-color: var(--due-none);
+    background: #f9fafb
+}
+
+.task.is-done {
+    opacity:.85;
+    border-left-color: #2F9ACDFF;
+    background:#f0fff7;
+}
+
+
+.column.drop-hover {
+    outline: 3px dashed var(--primary);
+    outline-offset: 4px
+}
+
+.inline {
+    display: inline;
+    margin: 0;
+    padding: 0
+}
+
+.inline input {
+    display: none
+}
