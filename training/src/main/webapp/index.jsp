@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="<c:url value='/static/app.css'/>"/>
 </head>
 <body>
+<c:set var="errors" value="${requestScope.errors}"/>
+<c:set var="form" value="${requestScope.form}"/>
+
 <div class="container">
 
     <header>
@@ -17,15 +20,48 @@
 
     <!-- Formulaire d'ajout -->
     <form class="form-add" action="<c:url value='/add'/>" method="post">
-        <input name="title" type="text" placeholder="Titre" required/>
-        <input name="description" type="text" placeholder="Description (optionnelle)"/>
-        <input name="dueDate" type="date" />
+
+        <div class="input-wrap">
+            <!-- Titre de la t^ache -->
+            <input name="title" type="text" placeholder="Titre"
+                   value="${form.title}"
+                   class="${errors['title'] != null ? 'input-error' : ''}"
+                   required minlength="2" maxlength="1000"/>
+
+            <c:if test="${errors['title'] != null}">
+                <span class="error-icon">i</span>
+                <span class="error-tip">${errors['title']}</span>
+            </c:if>
+        </div>
+
+        <!-- Description -->
+        <div class="input-wrap">
+            <input id="add-desc" name="description" type="text" placeholder="Description"
+                   value="${form.description}" maxlength="1000"
+                   class="${errors['description'] != null ? 'input-error' : ''}"/>
+
+            <c:if test="${errors['description'] != null}">
+                <span class="error-icon">i</span>
+                <span class="error-tip">${errors['description']}</span>
+            </c:if>
+        </div>
+
+        <!-- Due date -->
+        <div class="input-wrap">
+            <input id="add-due" name="dueDate" type="date" value="${form.dueDate}"
+                   class="${errors['dueDate'] != null ? 'input-error' : ''}"/>
+            <c:if test="${errors['dueDate'] != null}">
+                <span class="error-icon">i</span>
+                <span class="error-tip">${errors['dueDate']}</span>
+            </c:if>
+        </div>
+
         <div class="actions-row">
             <button class="btn btn-primary" type="submit">Ajouter</button>
         </div>
     </form>
 
-    <!-- Formulaire d'édition (affiché seulement si /edit) -->
+    <!-- Formulaire d'édition (affiché seulement si editingTask n'est pas null) -->
     <c:if test="${not empty editingTask}">
         <form class="form-edit" action="<c:url value='/update'/>" method="post">
             <input type="hidden" name="id" value="${editingTask.id}"/>
@@ -33,7 +69,8 @@
             <input name="description" type="text" value="${editingTask.description}" placeholder="Description"/>
             <input name="dueDate" type="date" value="${editingTask.dueDate}"/>
             <label class="checkbox">
-                <input type="checkbox" name="done" <c:if test="${editingTask.done}">checked</c:if> />
+                <input type="checkbox" name="done"
+                       <c:if test="${editingTask.done}">checked</c:if> />
                 Terminé
             </label>
             <div class="actions-row">
@@ -45,14 +82,17 @@
 
     <!-- Deux colonnes : À faire / Terminé -->
     <div class="board">
-        <!-- À faire -->
+        <!-- Colonne à faire -->
         <section class="column" data-done="false">
             <h2>À faire</h2>
             <ul class="task-list">
+                <!-- Afficher toutes les taches qui ne sont pas "done"-->
                 <c:forEach var="t" items="${tasks}">
                     <c:if test="${not t.done}">
+                        <!-- Chaque tache -->
                         <li class="task ${t.urgencyClass}" draggable="true" data-id="${t.id}">
-                            <form class="inline" action="<c:url value='/toggle'/>" method="post" title="Marquer terminé">
+                            <form class="inline" action="<c:url value='/toggle'/>" method="post"
+                                  title="Marquer terminé">
                                 <input type="hidden" name="id" value="${t.id}"/>
                                 <button class="btn btn-icon" type="submit">✔</button>
                             </form>
@@ -70,7 +110,8 @@
                             </div>
 
                             <div class="actions">
-                                <a class="btn btn-ghost" href="<c:url value='/edit'><c:param name='id' value='${t.id}'/></c:url>">Éditer</a>
+                                <a class="btn btn-ghost"
+                                   href="<c:url value='/edit'><c:param name='id' value='${t.id}'/></c:url>">Éditer</a>
                                 <form class="inline" action="<c:url value='/delete'/>" method="post">
                                     <input type="hidden" name="id" value="${t.id}"/>
                                     <button class="btn btn-danger" type="submit">Supprimer</button>
@@ -82,14 +123,15 @@
             </ul>
         </section>
 
-        <!-- Terminé -->
+        <!-- Colonne terminé -->
         <section class="column" data-done="true">
             <h2>Terminé</h2>
             <ul class="task-list">
                 <c:forEach var="t" items="${tasks}">
                     <c:if test="${t.done}">
                         <li class="task is-done" draggable="true" data-id="${t.id}">
-                            <form class="inline" action="<c:url value='/toggle'/>" method="post" title="Renvoyer à faire">
+                            <form class="inline" action="<c:url value='/toggle'/>" method="post"
+                                  title="Renvoyer à faire">
                                 <input type="hidden" name="id" value="${t.id}"/>
                                 <button class="btn btn-icon" type="submit">↩</button>
                             </form>
@@ -107,7 +149,8 @@
                             </div>
 
                             <div class="actions">
-                                <a class="btn btn-ghost" href="<c:url value='/edit'><c:param name='id' value='${t.id}'/></c:url>">Éditer</a>
+                                <a class="btn btn-ghost"
+                                   href="<c:url value='/edit'><c:param name='id' value='${t.id}'/></c:url>">Éditer</a>
                                 <form class="inline" action="<c:url value='/delete'/>" method="post">
                                     <input type="hidden" name="id" value="${t.id}"/>
                                     <button class="btn btn-danger" type="submit">Supprimer</button>
@@ -119,7 +162,10 @@
             </ul>
         </section>
     </div>
-
+        <p style="margin-top:1rem">
+            <a class="btn btn-ghost" href="<c:url value='/demo'/>">Validation trining page</a>
+        </p>
 </div>
+
 </body>
 </html>

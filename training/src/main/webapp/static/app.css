@@ -237,9 +237,9 @@ button:hover, .btn:hover {
 }
 
 .task.is-done {
-    opacity:.85;
+    opacity: .85;
     border-left-color: #2F9ACDFF;
-    background:#f0fff7;
+    background: #f0fff7;
 }
 
 
@@ -256,4 +256,89 @@ button:hover, .btn:hover {
 
 .inline input {
     display: none
+}
+
+/* Conteneur de l'input + icône */
+.input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: .4rem
+}
+
+/* Bordure rouge si erreur (on garde ta classe existante) */
+.input-error {
+    border-color: #fecaca;
+    background: #fff7f7
+}
+
+/* Icône "info/erreur" cliquable & focusable */
+.error-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1px solid #fecaca;
+    color: #b91c1c;
+    background: #fff;
+    font-size: 13px;
+    line-height: 1;
+    cursor: default;
+}
+
+.error-icon:focus-visible {
+    outline: 2px solid #b91c1c;
+    outline-offset: 2px
+}
+
+/* Bulle (tooltip) cachée par défaut */
+.error-tip {
+    position: absolute;
+    z-index: 20;
+    top: calc(100% + 6px);
+    left: 0;
+    background: #111;
+    color: #fff;
+    border-radius: .5rem;
+    padding: .5rem .6rem;
+    font-size: .9rem;
+    line-height: 1.2;
+    max-width: 320px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .18);
+    opacity: 0;
+    transform: translateY(-4px);
+    pointer-events: none;
+    transition: .15s ease;
+}
+
+/* Petite flèche du tooltip */
+.error-tip::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: 10px;
+    border: 6px solid transparent;
+    border-bottom-color: #111;
+}
+
+/* Affichage au hover/focus de l’icône */
+.input-wrap .error-icon:hover + .error-tip,
+.input-wrap .error-icon:focus + .error-tip {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto
+}
+
+/* Si le champ est près du bord droit, on peut aligner le tooltip à droite en ajoutant .tip-right au span */
+.input-wrap .error-icon:hover + .error-tip.tip-right,
+.input-wrap .error-icon:focus + .error-tip.tip-right {
+    left: auto;
+    right: 0
+}
+
+.error-tip.tip-right::before {
+    left: auto;
+    right: 10px
 }

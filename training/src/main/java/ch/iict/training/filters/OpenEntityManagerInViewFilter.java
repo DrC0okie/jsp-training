@@ -8,6 +8,9 @@ import jakarta.servlet.annotation.WebFilter;
 
 import java.io.IOException;
 
+/**
+ * Ce filtre ouvre un entity manager et une transaction et le place dans les attributs
+ */
 @WebFilter("/*")
 public class OpenEntityManagerInViewFilter implements Filter {
 
@@ -21,6 +24,7 @@ public class OpenEntityManagerInViewFilter implements Filter {
         EntityManager em = emf.createEntityManager();
         req.setAttribute("em", em);
 
+        // Pour chaque requete, on va démarrer une transaction
         em.getTransaction().begin();
         try {
             chain.doFilter(req, res);   // laisse passer vers la servlet
