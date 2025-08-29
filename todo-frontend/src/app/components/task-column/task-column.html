@@ -1,0 +1,19 @@
+<section class="column">
+  <div class="column-head">
+    <h2>{{ title }}</h2>
+    <button class="fab-add-btn" matFab (click)="addRequested.emit()" title="Ajouter"><mat-icon> add </mat-icon></button>
+  </div>
+
+  <ul class="task-list">
+    @for (t of tasks; track t.id) {
+      <app-task-card
+        [task]="t"
+        (toggle)="toggle.emit($event)"
+        (edit)="editRequested.emit($event)"
+        (delete)="deleteRequested.emit($event)">
+      </app-task-card>
+    } @empty {
+      <li class="muted">Aucune tâche</li>
+    }
+  </ul>
+</section>

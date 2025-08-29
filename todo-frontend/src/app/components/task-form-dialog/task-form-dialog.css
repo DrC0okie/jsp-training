@@ -1,0 +1,63 @@
+:host {
+  display: contents;
+} /* pour laisser l’overlay couvrir toute la page */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.45);
+  display: grid;
+  place-items: center;
+  z-index: 1000;
+}
+.dialog {
+  width: min(92vw, 560px);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.18);
+}
+.row {
+  margin: 0.6rem 0;
+  display: flex;
+}
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  width: 100%;
+}
+input[type='text'],
+input[type='date'] {
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+}
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  margin-top: 0.6rem;
+}
+.field-error {
+  color: var(--danger);
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+
+/* espace vertical entre les champs */
+.dialog .mat-mdc-form-field { 
+  display:block;
+  margin: 10px 0 14px;
+}
+
+/* petit espace sous la checkbox */
+.dialog .mat-mdc-checkbox { 
+  margin: 6px 0 10px;
+}
+
+/* aligne les erreurs plus lisiblement (optionnel) */
+.dialog .mat-mdc-form-field-subscript-wrapper {
+  margin-top: 2px;
+}
+

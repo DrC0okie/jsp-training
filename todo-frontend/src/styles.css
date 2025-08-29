@@ -1,0 +1,63 @@
+:root {
+  --bg: #f7f7fb;
+  --panel: #fff;
+  --text: #222;
+  --muted: #667085;
+  --border: #e6e6ef;
+  --primary: #3b82f6;
+  --danger: #ef4444;
+  --ok: #10b981;
+  --amber: #f59e0b;
+  --due-none: #b8c0c9;
+  --due-later: #22c55e;
+  --due-soon: #f59e0b;
+  --overdue: #ef4444;
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+  background: linear-gradient(180deg, #f9fafb 0%, var(--bg) 100%);
+}
+/* boutons (partagé) */
+button,
+.btn {
+  appearance: none;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: #111;
+  padding: 0.55rem 0.8rem;
+  border-radius: 0.55rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+button:hover,
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+.btn-primary {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+.btn-danger {
+  background: #fff;
+  border-color: #fecaca;
+  color: #b91c1c;
+}
+.btn-ghost {
+  background: #fff;
+}
+.btn-icon {
+  width: 2.1rem;
+  display: inline-flex;
+  justify-content: center;
+}

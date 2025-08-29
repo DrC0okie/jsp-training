@@ -1,11 +1,13 @@
 package ch.iict.training.filters;
 
 import jakarta.servlet.*;
+import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Set;
 
+@WebFilter("/*")
 public class CorsFilter implements Filter {
 
     private static final Set<String> ALLOWED_ORIGINS = Set.of(

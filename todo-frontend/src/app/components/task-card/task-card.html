@@ -1,0 +1,29 @@
+<li
+  class="task"
+  [class.is-done]="task.done"
+  [class.overdue]="isOverdue(task)"
+  [class.due-soon]="isDueSoon(task)"
+  [class.due-later]="isDueLater(task)"
+  [class.due-none]="!task.dueDate"
+>
+  <div class="body">
+    <div class="title">{{ task.title }}</div>
+    @if (task.description) {
+    <div class="desc">{{ task.description }}</div>
+    }
+    <div class="meta">
+      @if (task.dueDate) { <span class="badge">Échéance : {{ task.dueDate | date:'fullDate' }}</span> }
+    </div>
+  </div>
+  <div class="actions">
+    <button
+      matFab
+      (click)="toggle.emit(task)"
+      title="{{ task.done ? 'Renvoyer à faire' : 'Marquer terminé' }}"
+    >
+      <mat-icon>{{ task.done ? 'undo' : 'check' }}</mat-icon>
+    </button>
+     <button matFab (click)="edit.emit(task)" title="Éditer">  <mat-icon>edit</mat-icon></button>
+    <button matFab (click)="delete.emit(task)" class="fab-del-btn" title="Supprimer"><mat-icon> delete </mat-icon></button>
+  </div>
+</li>

@@ -1,0 +1,29 @@
+:host {
+  display: block;
+}
+.container {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+header h1 {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.board {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+}
+@media (max-width: 900px) {
+  .board {
+    grid-template-columns: 1fr;
+  }
+}

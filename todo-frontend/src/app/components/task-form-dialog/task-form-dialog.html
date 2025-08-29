@@ -1,0 +1,62 @@
+<div class="overlay">
+  <div class="dialog">
+    <h3>{{ mode === 'edit' ? 'Modifier la tâche' : 'Ajouter une tâche' }}</h3>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" style="width: 100%">
+        <mat-label>Titre</mat-label>
+        <input
+          matInput
+          placeholder="Titre"
+          [formControl]="form.controls.title"
+          (input)="clearServerError('title')"
+        />
+        @if (form.controls.title.hasError('required')) {
+        <mat-error>Le titre est requis</mat-error>
+        } @if (form.controls.title.hasError('minlength')) {
+        <mat-error>Au moins 2 caractères</mat-error>
+        } @if (form.controls.title.hasError('maxlength')) {
+        <mat-error>Maximum 100 caractères</mat-error>
+        } @if (form.controls.title.hasError('backend')) {
+        <mat-error>{{ serverErrorFor('title') }}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" style="width: 100%">
+        <mat-label>Description</mat-label>
+        <input
+          matInput
+          placeholder="Description"
+          [formControl]="form.controls.description"
+          (input)="clearServerError('description')"
+        />
+        @if (form.controls.description.hasError('maxlength')) {
+        <mat-error>Maximum 300 caractères</mat-error>
+        } @if (form.controls.description.hasError('backend')) {
+        <mat-error>{{ serverErrorFor('description') }}</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" subscriptSizing="dynamic" style="width: 100%">
+        <mat-label>Échéance</mat-label>
+        <input matInput [matDatepicker]="picker" [formControl]="form.controls.dueDate" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        @if (form.controls.dueDate.hasError('backend')) {
+        <mat-error>{{ serverErrorFor('dueDate') }}</mat-error>
+        }
+      </mat-form-field>
+
+      <div style="margin: 0.25rem 0 0.5rem">
+        <mat-checkbox [formControl]="form.controls.done">Terminé</mat-checkbox>
+      </div>
+
+      <div class="actions">
+        <button mat-raised-button color="primary" type="submit">
+          {{ mode === 'edit' ? 'Enregistrer' : 'Ajouter' }}
+        </button>
+        <button mat-stroked-button type="button" (click)="cancelled.emit()">Annuler</button>
+      </div>
+    </form>
+  </div>
+</div>

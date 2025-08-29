@@ -1,0 +1,39 @@
+<div class="container">
+  <header><h1>Mes tâches</h1></header>
+
+  @if (loading) {
+  <p>Chargement…</p>
+  } @else {
+  <div class="board">
+    <app-task-column
+      [title]="'À faire'"
+      [tasks]="todo"
+      (addRequested)="onAddRequested(false)"
+      (toggle)="onToggle($event)"
+      (editRequested)="onEditRequested($event)"
+      (deleteRequested)="onDelete($event)"
+    >
+    </app-task-column>
+
+    <app-task-column
+      [title]="'Terminé'"
+      [tasks]="done"
+      (addRequested)="onAddRequested(true)"
+      (toggle)="onToggle($event)"
+      (editRequested)="onEditRequested($event)"
+      (deleteRequested)="onDelete($event)"
+    >
+    </app-task-column>
+  </div>
+  } @if (dialog.open) {
+  <app-task-form-dialog
+    [serverErrors]="serverErrors"
+    [mode]="dialog.mode"
+    [initial]="dialog.mode === 'edit' ? dialog.initial : null"
+    [presetDone]="dialog.mode === 'create' ? dialog.presetDone : null"
+    (submitted)="onDialogSubmit($event)"
+    (cancelled)="onDialogCancel()"
+  >
+  </app-task-form-dialog>
+  }
+</div>
